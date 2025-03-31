@@ -1,0 +1,30 @@
+@import url("./reset.scss");
+@import url("./vars/global.scss");
+@import url("./fonts.scss");
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  font: var(--font-m);
+
+  background: var(--body);
+  color: var(--primary-color);
+
+  min-height: 100vh;
+}
+
+.page-content {
+  display: flex;
+}
+
+.page-wrapper {
+  flex-grow: 1;
+  padding: 1.25rem;
+}

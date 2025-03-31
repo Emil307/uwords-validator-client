@@ -1,0 +1,14 @@
+import React from "react";
+import styles from "./styles.module.scss";
+
+interface Props {
+  onClick: () => void;
+}
+
+export const ConfrimImageButton: React.FC<Props> = ({ onClick }) => {
+  return (
+    <button className={styles.button} onClick={onClick}>
+      Оставить текущее
+    </button>
+  );
+};
