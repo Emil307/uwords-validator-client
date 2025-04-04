@@ -3,11 +3,12 @@ import styles from "./styles.module.scss";
 
 interface Props {
   onClick: () => void;
+  disabled: boolean;
 }
 
-export const WithoutImageButton: React.FC<Props> = ({ onClick }) => {
+export const WithoutImageButton: React.FC<Props> = ({ onClick, disabled }) => {
   return (
-    <button className={styles.button} onClick={onClick}>
+    <button className={styles.button} onClick={onClick} disabled={disabled}>
       Без фото
     </button>
   );

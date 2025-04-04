@@ -1,11 +1,15 @@
 import React from "react";
-import image1 from "@/assets/images/1.jpg";
 import styles from "./styles.module.scss";
 
-export const ImageViewer: React.FC = () => {
+interface IImageViewerProps {
+  photoUrl: string;
+  alt: string;
+}
+
+export const ImageViewer: React.FC<IImageViewerProps> = ({ photoUrl, alt }) => {
   return (
     <div>
-      <img className={styles.img} src={image1} alt="1" />
+      <img className={styles.img} src={photoUrl} alt={alt} />
     </div>
   );
 };
