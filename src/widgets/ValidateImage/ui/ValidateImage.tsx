@@ -41,7 +41,9 @@ export const ValidateImage: React.FC = () => {
     setIsModerating(true);
     updateWord(word.id, { is_moderated: true })
       .then(() => {
-        handleGetNextWord();
+        setTimeout(() => {
+          handleGetNextWord();
+        }, 100);
       })
       .catch((error) => {
         console.log(error);
@@ -56,7 +58,9 @@ export const ValidateImage: React.FC = () => {
     setIsModerating(true);
     withoutImage(word.id)
       .then(() => {
-        handleGetNextWord();
+        setTimeout(() => {
+          handleGetNextWord();
+        }, 100);
       })
       .catch((error) => {
         console.log(error);
@@ -71,7 +75,9 @@ export const ValidateImage: React.FC = () => {
     setIsModerating(true);
     updateWord(word.id, { is_add_later: true })
       .then(() => {
-        handleGetNextWord();
+        setTimeout(() => {
+          handleGetNextWord();
+        }, 100);
       })
       .catch((error) => {
         console.log(error);
