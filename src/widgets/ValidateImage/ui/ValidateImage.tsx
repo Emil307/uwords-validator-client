@@ -12,6 +12,7 @@ import {
   withoutImage,
 } from "@/entities/images";
 import styles from "./styles.module.scss";
+import { Button } from "@/shared";
 
 export const ValidateImage: React.FC = () => {
   const [word, setWord] = useState<ITWord | null>(null);
@@ -81,6 +82,21 @@ export const ValidateImage: React.FC = () => {
       });
   }
 
+  function handleWrongTranslation() {
+    if (!word) return;
+    setIsModerating(true);
+    updateWord(word.id, { is_wrong_translation: true })
+      .then(() => {
+        handleGetNextWord();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsModerating(false);
+      });
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.word}>
@@ -109,6 +125,12 @@ export const ValidateImage: React.FC = () => {
             disabled={isLoading || isModerating}
           />
         </div>
+        <Button
+          onClick={handleWrongTranslation}
+          disabled={isLoading || isModerating}
+        >
+          Неверный перевод
+        </Button>
       </div>
     </div>
   );
