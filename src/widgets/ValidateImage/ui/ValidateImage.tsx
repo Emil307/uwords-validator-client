@@ -99,6 +99,8 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <span>{word?.id}</span>
+
       <h2 className={styles.word}>
         {(isLoading || isModerating) && "Loading... / Loading..."}
         {!isLoading && !isModerating && `${word?.en} / ${word?.ru}`}
