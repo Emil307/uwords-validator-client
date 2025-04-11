@@ -9,7 +9,7 @@ interface Props {
 export const AddImageLater: React.FC<Props> = ({ onClick, disabled }) => {
   return (
     <button className={styles.button} onClick={onClick} disabled={disabled}>
-      Добавить позже
+      Сменить фото
     </button>
   );
 };
