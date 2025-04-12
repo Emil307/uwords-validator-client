@@ -5,6 +5,7 @@ import {
   WithoutImageButton,
 } from "@/features/images";
 import {
+  getModeratedCount,
   getNextWord,
   ImageViewer,
   ITWord,
@@ -18,9 +19,11 @@ export const ValidateImage: React.FC = () => {
   const [word, setWord] = useState<ITWord | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isModerating, setIsModerating] = useState(false);
+  const [moderatedCount, setModeratedCount] = useState("");
 
   useEffect(() => {
     handleGetNextWord();
+    handleGetModeratedCount();
   }, []);
 
   function handleGetNextWord() {
@@ -28,12 +31,24 @@ export const ValidateImage: React.FC = () => {
     getNextWord()
       .then((res) => {
         setWord(res.data);
+        setModeratedCount(moderatedCount + 1);
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         setIsLoading(false);
+      });
+  }
+
+  function handleGetModeratedCount() {
+    getModeratedCount()
+      .then((res) => {
+        setModeratedCount(res.data);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -99,7 +114,7 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <span>{word?.id}</span>
+      <span>{moderatedCount}</span>
 
       <h2 className={styles.word}>
         {(isLoading || isModerating) && "Loading... / Loading..."}

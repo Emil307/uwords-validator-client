@@ -17,3 +17,7 @@ export async function withoutImage(wordId: number): Promise<AxiosResponse> {
 export async function getNextWord(): Promise<AxiosResponse<ITWord>> {
   return await $api.get(`/api/words/next`);
 }
+
+export async function getModeratedCount(): Promise<AxiosResponse> {
+  return await $api.get(`/api/words/moderated-count`);
+}
