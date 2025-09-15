@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  AddImageLater,
-  ConfrimImageButton,
-  WithoutImageButton,
-} from "@/features/images";
+import { ConfrimImageButton, WithoutImageButton } from "@/features/images";
 import {
   getModeratedCount,
   getNextWord,
@@ -80,21 +76,6 @@ export const ValidateImage: React.FC = () => {
       });
   }
 
-  function handleAddImageLater() {
-    if (!word) return;
-    setIsModerating(true);
-    updateWord(word.id, { is_add_later: true })
-      .then(() => {
-        handleGetNextWord();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsModerating(false);
-      });
-  }
-
   return (
     <div className={styles.container}>
       {(isLoading || isModerating) && (
@@ -115,10 +96,6 @@ export const ValidateImage: React.FC = () => {
         <div className={styles.bottom}>
           <WithoutImageButton
             onClick={handleWithoutImage}
-            disabled={isLoading || isModerating}
-          />
-          <AddImageLater
-            onClick={handleAddImageLater}
             disabled={isLoading || isModerating}
           />
         </div>
