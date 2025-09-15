@@ -27,13 +27,25 @@
   background-color: rgba(242, 236, 231, 0.2);
 }
 
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: rgba(242, 236, 231, 0.2);
+
+  font-size: 1rem;
+  color: #fff;
+}
+
+.textarea {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100px;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.bottom {
-  display: flex;
-  gap: 0.75rem;
 }

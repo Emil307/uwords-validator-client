@@ -1,6 +1,6 @@
 import { $api } from "@/shared";
 import { AxiosResponse } from "axios";
-import { UpdateWordRequestDTO } from "./types";
+import { GetImagesByWordRequestDTO, UpdateWordRequestDTO } from "./types";
 import { ITWord } from "../types";
 
 export async function updateWord(
@@ -20,4 +20,10 @@ export async function getNextWord(): Promise<AxiosResponse<ITWord>> {
 
 export async function getModeratedCount(): Promise<AxiosResponse> {
   return await $api.get(`/api/words/moderated-count`);
+}
+
+export async function getImagesByWord(
+  word: string
+): Promise<AxiosResponse<GetImagesByWordRequestDTO>> {
+  return await $api.get(`/api/words/search-images?word=${word}`);
 }

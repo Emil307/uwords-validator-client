@@ -2,6 +2,11 @@
 @import url("./vars/global.scss");
 @import url("./fonts.scss");
 
+body {
+  overflow: hidden;
+  background: var(--body);
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -14,7 +19,6 @@ button {
 .app {
   font: var(--font-m);
 
-  background: var(--body);
   color: var(--primary-color);
 
   min-height: 100vh;

@@ -12,11 +12,11 @@ select {
 
   font: inherit;
   background: none;
-  border: none !important;
+  border: none;
 }
 
 textarea:focus,
 input:focus {
-  outline: none !important;
-  border: none !important;
+  outline: none;
+  border: none;
 }
