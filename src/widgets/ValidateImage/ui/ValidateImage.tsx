@@ -113,17 +113,16 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.word}>
-        {(isLoading || isModerating) && "Loading... / Loading..."}
-        {!isLoading && !isModerating && `${word?.en} / ${word?.ru}`}
-      </h2>
-
       {(isLoading || isModerating) && (
         <div className={styles.loadingImage}></div>
       )}
       {!isLoading && !isModerating && (
         <ImageViewer photoUrls={word?.photo_urls || []} alt={word?.en || ""} />
       )}
+      <h2 className={styles.word}>
+        {(isLoading || isModerating) && "Loading... / Loading..."}
+        {!isLoading && !isModerating && `${word?.en} / ${word?.ru}`}
+      </h2>
       <div className={styles.buttons}>
         <ConfrimImageButton
           onClick={handleConfirmImage}
