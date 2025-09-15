@@ -14,7 +14,7 @@ export const GetMoreImages: React.FC<IGetMoreImagesProps> = ({
   setImagesUrls,
 }) => {
   function handleGetMoreImages() {
-    getImagesByWord(word)
+    getImagesByWord(word, imagesUrls.length / 4 + 1)
       .then((res) => {
         setImagesUrls([...imagesUrls, ...res.data.images]);
       })

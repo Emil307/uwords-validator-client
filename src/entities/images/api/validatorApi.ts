@@ -23,7 +23,8 @@ export async function getModeratedCount(): Promise<AxiosResponse> {
 }
 
 export async function getImagesByWord(
-  word: string
+  word: string,
+  page: number
 ): Promise<AxiosResponse<GetImagesByWordRequestDTO>> {
-  return await $api.get(`/api/words/search-images?word=${word}`);
+  return await $api.get(`/api/words/search-images?word=${word}&page=${page}`);
 }
