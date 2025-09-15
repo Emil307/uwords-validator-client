@@ -15,6 +15,7 @@ export const ValidateImage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModerating, setIsModerating] = useState(false);
   const [moderatedCount, setModeratedCount] = useState("");
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     handleGetNextWord();
@@ -88,6 +89,12 @@ export const ValidateImage: React.FC = () => {
         {(isLoading || isModerating) && "Loading... / Loading..."}
         {!isLoading && !isModerating && `${word?.en} / ${word?.ru}`}
       </h2>
+      <textarea
+        className={styles.textarea}
+        placeholder="Примечание (необязательно)"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      ></textarea>
       <div className={styles.buttons}>
         <ConfrimImageButton
           onClick={handleConfirmImage}
