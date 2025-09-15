@@ -21,6 +21,7 @@ export const ValidateImage: React.FC = () => {
   const [moderatedCount, setModeratedCount] = useState("");
   const [editedTranslation, setEditedTranslation] = useState("");
   const [comment, setComment] = useState("");
+  const [imagesUrls, setImagesUrls] = useState<string[]>([]);
 
   useEffect(() => {
     handleGetNextWord();
@@ -32,6 +33,7 @@ export const ValidateImage: React.FC = () => {
     getNextWord()
       .then((res) => {
         setWord(res.data);
+        setImagesUrls(res.data.photo_urls);
         setModeratedCount(moderatedCount + 1);
       })
       .catch((error) => {
@@ -84,12 +86,12 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <GetMoreImages />
+      <GetMoreImages imagesUrls={imagesUrls} setImagesUrls={setImagesUrls} />
       {(isLoading || isModerating) && (
         <div className={styles.loadingImage}></div>
       )}
       {!isLoading && !isModerating && (
-        <ImageViewer photoUrls={word?.photo_urls || []} alt={word?.en || ""} />
+        <ImageViewer photoUrls={imagesUrls} alt={word?.en || ""} />
       )}
       <h2 className={styles.word}>
         {(isLoading || isModerating) && "Loading... / Loading..."}
