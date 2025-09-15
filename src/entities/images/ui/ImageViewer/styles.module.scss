@@ -89,16 +89,10 @@
   padding: 0 !important;
   margin: 0 !important;
   opacity: 1 !important;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    transform: scale(1.2) !important;
-  }
 }
 
 .activeDot {
   background-color: #fff !important;
-  transform: scale(1.4) !important;
 
   &:hover {
     background-color: #fff !important;
