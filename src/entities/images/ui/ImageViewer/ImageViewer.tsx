@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
@@ -12,22 +12,23 @@ import styles from "./styles.module.scss";
 interface IImageViewerProps {
   photoUrls: string[];
   alt: string;
+  selectedPhoto: string;
+  setSelectedPhoto: (url: string) => void;
 }
 
 export const ImageViewer: React.FC<IImageViewerProps> = ({
   photoUrls,
   alt,
+  selectedPhoto,
+  setSelectedPhoto,
 }) => {
-  // Разбиваем изображения на группы по 4
   const slidesData = [];
   for (let i = 0; i < photoUrls.length; i += 4) {
     slidesData.push(photoUrls.slice(i, i + 4));
   }
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
   function handleImageClick(url: string) {
-    setSelectedImage(url);
+    setSelectedPhoto(url);
   }
 
   if (slidesData.length === 0) {
@@ -68,7 +69,7 @@ export const ImageViewer: React.FC<IImageViewerProps> = ({
                   onClick={() => handleImageClick(url)}
                   style={{
                     border:
-                      selectedImage === url
+                      selectedPhoto === url
                         ? "4px solid green"
                         : "1px solid #fff",
                   }}

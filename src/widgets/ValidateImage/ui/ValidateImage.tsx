@@ -22,6 +22,7 @@ export const ValidateImage: React.FC = () => {
   const [editedTranslation, setEditedTranslation] = useState("");
   const [comment, setComment] = useState("");
   const [imagesUrls, setImagesUrls] = useState<string[]>([]);
+  const [selectedPhoto, setSelectedPhoto] = useState<string>("");
 
   useEffect(() => {
     handleGetNextWord();
@@ -54,10 +55,13 @@ export const ValidateImage: React.FC = () => {
       });
   }
 
-  function handleConfirmImage() {
+  function handleGoNext() {
     if (!word) return;
     setIsModerating(true);
-    updateWord(word.id, { is_moderated: true })
+    updateWord(word.id, {
+      is_moderated: true,
+      selected_photo: imagesUrls[0],
+    })
       .then(() => {
         handleGetNextWord();
       })
@@ -91,7 +95,12 @@ export const ValidateImage: React.FC = () => {
         <div className={styles.loadingImage}></div>
       )}
       {!isLoading && !isModerating && (
-        <ImageViewer photoUrls={imagesUrls} alt={word?.en || ""} />
+        <ImageViewer
+          selectedPhoto={selectedPhoto}
+          setSelectedPhoto={setSelectedPhoto}
+          photoUrls={imagesUrls}
+          alt={word?.en || ""}
+        />
       )}
       <h2 className={styles.word}>
         {(isLoading || isModerating) && "Loading... / Loading..."}
@@ -111,7 +120,7 @@ export const ValidateImage: React.FC = () => {
       ></textarea>
       <div className={styles.buttons}>
         <ConfrimImageButton
-          onClick={handleConfirmImage}
+          onClick={handleGoNext}
           disabled={isLoading || isModerating}
         />
         {word && word?.photo_urls.length > 0 && (
