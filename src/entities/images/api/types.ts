@@ -7,3 +7,8 @@ export interface UpdateWordRequestDTO {
   is_add_later?: boolean;
   is_wrong_translation?: boolean;
 }
+
+export interface GetImagesByWordRequestDTO {
+  word: string;
+  images: string[];
+}

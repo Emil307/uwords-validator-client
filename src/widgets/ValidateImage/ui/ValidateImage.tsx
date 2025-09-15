@@ -90,7 +90,11 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <GetMoreImages imagesUrls={imagesUrls} setImagesUrls={setImagesUrls} />
+      <GetMoreImages
+        word={word?.en || ""}
+        imagesUrls={imagesUrls}
+        setImagesUrls={setImagesUrls}
+      />
       {(isLoading || isModerating) && (
         <div className={styles.loadingImage}></div>
       )}
