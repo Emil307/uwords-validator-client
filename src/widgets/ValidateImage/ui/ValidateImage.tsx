@@ -45,7 +45,6 @@ export const ValidateImage: React.FC = () => {
     getModeratedCount()
       .then((res) => {
         setModeratedCount(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
