@@ -9,7 +9,7 @@ interface Props {
 export const ConfrimImageButton: React.FC<Props> = ({ onClick, disabled }) => {
   return (
     <button className={styles.button} onClick={onClick} disabled={disabled}>
-      Оставить текущее
+      Далее
     </button>
   );
 };
