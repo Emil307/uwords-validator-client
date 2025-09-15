@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+.button {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-decoration: underline;
+}

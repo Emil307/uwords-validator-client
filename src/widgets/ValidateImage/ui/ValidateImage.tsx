@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ConfrimImageButton, WithoutImageButton } from "@/features/images";
+import {
+  ConfrimImageButton,
+  GetMoreImages,
+  WithoutImageButton,
+} from "@/features/images";
 import {
   getModeratedCount,
   getNextWord,
@@ -80,6 +84,7 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <GetMoreImages />
       {(isLoading || isModerating) && (
         <div className={styles.loadingImage}></div>
       )}
