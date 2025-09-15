@@ -2,14 +2,21 @@ import React from "react";
 import styles from "./styles.module.scss";
 
 interface IImageViewerProps {
-  photoUrl: string;
+  photoUrls: string[];
   alt: string;
 }
 
-export const ImageViewer: React.FC<IImageViewerProps> = ({ photoUrl, alt }) => {
+export const ImageViewer: React.FC<IImageViewerProps> = ({
+  photoUrls,
+  alt,
+}) => {
   return (
-    <div>
-      <img className={styles.img} src={photoUrl} alt={alt} />
+    <div className={styles.container}>
+      {photoUrls.map((url) => (
+        <button className={styles.imgContainer} key={url}>
+          <img className={styles.img} src={url} alt={alt} />
+        </button>
+      ))}
     </div>
   );
 };

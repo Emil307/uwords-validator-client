@@ -122,7 +122,7 @@ export const ValidateImage: React.FC = () => {
         <div className={styles.loadingImage}></div>
       )}
       {!isLoading && !isModerating && (
-        <ImageViewer photoUrl={word?.photo_url || ""} alt={word?.en || ""} />
+        <ImageViewer photoUrls={word?.photo_urls || []} alt={word?.en || ""} />
       )}
       <div className={styles.buttons}>
         <ConfrimImageButton
