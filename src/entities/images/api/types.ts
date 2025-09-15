@@ -1,6 +1,7 @@
 export interface UpdateWordRequestDTO {
   ru?: string;
   en?: string;
+  comment?: string;
   photo_url?: string;
   selected_photo?: string;
   is_moderated?: boolean;

@@ -61,9 +61,14 @@ export const ValidateImage: React.FC = () => {
     updateWord(word.id, {
       is_moderated: true,
       selected_photo: imagesUrls[0],
+      en: editedTranslation ? editedTranslation : word.en,
+      comment: comment,
     })
       .then(() => {
         handleGetNextWord();
+        setEditedTranslation("");
+        setComment("");
+        setSelectedPhoto("");
       })
       .catch((error) => {
         console.log(error);
