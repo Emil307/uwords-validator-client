@@ -93,12 +93,10 @@ export const ValidateImage: React.FC = () => {
           onClick={handleConfirmImage}
           disabled={isLoading || isModerating}
         />
-        <div className={styles.bottom}>
-          <WithoutImageButton
-            onClick={handleWithoutImage}
-            disabled={isLoading || isModerating}
-          />
-        </div>
+        <WithoutImageButton
+          onClick={handleWithoutImage}
+          disabled={isLoading || isModerating}
+        />
       </div>
     </div>
   );
