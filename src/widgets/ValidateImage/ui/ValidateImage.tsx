@@ -15,6 +15,7 @@ export const ValidateImage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModerating, setIsModerating] = useState(false);
   const [moderatedCount, setModeratedCount] = useState("");
+  const [editedTranslation, setEditedTranslation] = useState("");
   const [comment, setComment] = useState("");
 
   useEffect(() => {
@@ -89,6 +90,12 @@ export const ValidateImage: React.FC = () => {
         {(isLoading || isModerating) && "Loading... / Loading..."}
         {!isLoading && !isModerating && `${word?.en} / ${word?.ru}`}
       </h2>
+      <input
+        className={styles.input}
+        placeholder="Редактированный перевод (необязательно)"
+        value={editedTranslation}
+        onChange={(e) => setEditedTranslation(e.target.value)}
+      ></input>
       <textarea
         className={styles.textarea}
         placeholder="Примечание (необязательно)"
