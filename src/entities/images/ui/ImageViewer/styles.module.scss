@@ -3,25 +3,23 @@
   position: relative;
 }
 
-.slider {
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+.swiper {
+  width: 100%;
+  height: auto;
 
-  &::-webkit-scrollbar {
-    display: none; /* Webkit browsers */
-  }
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .slide {
-  flex: 0 0 100%;
   width: 100%;
-  scroll-snap-align: start;
-  padding: 0 2px; /* Небольшой отступ для предотвращения обрезки borders */
+  height: auto;
+  padding: 0 2px;
 }
 
 .grid {
@@ -49,6 +47,25 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+
+  /* Предотвращаем дерганье и выделение изображений */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+/* Стили для Swiper пагинации */
+:global(.swiper-pagination) {
+  position: static !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin-top: 1rem !important;
+  width: 100% !important;
+  min-height: 8px !important;
 }
 
 .dots {
@@ -62,26 +79,28 @@
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 1 !important;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.2);
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.2) !important;
   }
 }
 
 .activeDot {
-  background-color: #fff;
-  transform: scale(1.4);
+  background-color: #fff !important;
+  transform: scale(1.4) !important;
 
   &:hover {
-    background-color: #fff;
+    background-color: #fff !important;
   }
 }
