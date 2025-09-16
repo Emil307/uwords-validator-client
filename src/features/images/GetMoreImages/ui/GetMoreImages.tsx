@@ -14,6 +14,10 @@ export const GetMoreImages: React.FC<IGetMoreImagesProps> = ({
   setImagesUrls,
 }) => {
   function handleGetMoreImages() {
+    if (imagesUrls.length < 20) {
+      return;
+    }
+
     getImagesByWord(word, imagesUrls.length / 20 + 1)
       .then((res) => {
         setImagesUrls([...imagesUrls, ...res.data.images]);
@@ -25,8 +29,14 @@ export const GetMoreImages: React.FC<IGetMoreImagesProps> = ({
 
   return (
     <div className={styles.container}>
-      <button className={styles.button} onClick={handleGetMoreImages}>
-        Добавить изображения
+      <button
+        className={styles.button}
+        onClick={handleGetMoreImages}
+        disabled={imagesUrls.length < 20}
+      >
+        {imagesUrls.length < 20
+          ? "Больше нет изображений"
+          : "Добавить изображения"}
       </button>
     </div>
   );
