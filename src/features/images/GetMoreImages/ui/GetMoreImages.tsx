@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { getImagesByWord } from "@/entities/images";
 
@@ -14,6 +14,10 @@ export const GetMoreImages: React.FC<IGetMoreImagesProps> = ({
   setImagesUrls,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [word]);
 
   function handleGetMoreImages() {
     if (imagesUrls.length < 20 || isLoading) {
