@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { getImagesByWord } from "@/entities/images";
 
@@ -13,17 +13,23 @@ export const GetMoreImages: React.FC<IGetMoreImagesProps> = ({
   imagesUrls,
   setImagesUrls,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleGetMoreImages() {
-    if (imagesUrls.length < 20) {
+    if (imagesUrls.length < 20 || isLoading) {
       return;
     }
 
+    setIsLoading(true);
     getImagesByWord(word, imagesUrls.length / 20 + 1)
       .then((res) => {
         setImagesUrls([...imagesUrls, ...res.data.images]);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -32,11 +38,15 @@ export const GetMoreImages: React.FC<IGetMoreImagesProps> = ({
       <button
         className={styles.button}
         onClick={handleGetMoreImages}
-        disabled={imagesUrls.length < 20}
+        disabled={imagesUrls.length < 20 || isLoading}
       >
-        {imagesUrls.length < 20
-          ? "Больше нет изображений"
-          : "Добавить изображения"}
+        {isLoading ? (
+          <span className={styles.loader}>Загрузка...</span>
+        ) : imagesUrls.length < 20 ? (
+          "Больше нет изображений"
+        ) : (
+          "Добавить изображения"
+        )}
       </button>
     </div>
   );
