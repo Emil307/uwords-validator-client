@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import styles from "./styles.module.scss";
+import { ImageWithLoader } from "./ImageWithLoader";
 
 interface IImageViewerProps {
   photoUrls: string[];
@@ -63,23 +64,13 @@ export const ImageViewer: React.FC<IImageViewerProps> = ({
           <SwiperSlide key={slideIndex} className={styles.slide}>
             <div className={styles.grid}>
               {slideImages.map((url, imageIndex) => (
-                <button
-                  className={styles.imgContainer}
+                <ImageWithLoader
                   key={url}
+                  src={url}
+                  alt={`${alt} ${slideIndex * 4 + imageIndex + 1}`}
+                  isSelected={selectedPhoto === url}
                   onClick={() => handleImageClick(url)}
-                  style={{
-                    border:
-                      selectedPhoto === url
-                        ? "4px solid green"
-                        : "1px solid #fff",
-                  }}
-                >
-                  <img
-                    className={styles.img}
-                    src={url}
-                    alt={`${alt} ${slideIndex * 4 + imageIndex + 1}`}
-                  />
-                </button>
+                />
               ))}
             </div>
           </SwiperSlide>
