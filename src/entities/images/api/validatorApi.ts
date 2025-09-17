@@ -10,10 +10,6 @@ export async function updateWord(
   return await $api.patch(`/api/words/manage?word_id=${wordId}`, data);
 }
 
-export async function withoutImage(wordId: number): Promise<AxiosResponse> {
-  return await $api.delete(`/api/words/manage/picture?word_id=${wordId}`);
-}
-
 export async function getNextWord(): Promise<AxiosResponse<ITWord>> {
   return await $api.get(`/api/words/next`);
 }
