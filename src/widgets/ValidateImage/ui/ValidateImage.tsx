@@ -10,7 +10,6 @@ import {
   ImageViewer,
   ITWord,
   updateWord,
-  withoutImage,
 } from "@/entities/images";
 import styles from "./styles.module.scss";
 
@@ -81,9 +80,17 @@ export const ValidateImage: React.FC = () => {
   function handleWithoutImage() {
     if (!word) return;
     setIsModerating(true);
-    withoutImage(word.id)
+    updateWord(word.id, {
+      is_moderated: true,
+      selected_photo: "",
+      en: editedTranslation ? editedTranslation : word.en,
+      comment: comment,
+    })
       .then(() => {
         handleGetNextWord();
+        setEditedTranslation("");
+        setComment("");
+        setSelectedPhoto("");
       })
       .catch((error) => {
         console.log(error);
