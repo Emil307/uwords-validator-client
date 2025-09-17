@@ -55,11 +55,16 @@ export const ValidateImage: React.FC = () => {
   }
 
   function handleGoNext() {
+    if (selectedPhoto === "") {
+      return;
+    }
+
     if (!word) return;
+
     setIsModerating(true);
     updateWord(word.id, {
       is_moderated: true,
-      selected_photo: imagesUrls[0],
+      selected_photo: selectedPhoto,
       en: editedTranslation ? editedTranslation : word.en,
       comment: comment,
     })
