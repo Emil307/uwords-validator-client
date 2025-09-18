@@ -18,7 +18,8 @@ export const ValidateImage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModerating, setIsModerating] = useState(false);
   const [moderatedCount, setModeratedCount] = useState("");
-  const [editedTranslation, setEditedTranslation] = useState("");
+  const [editedTranslationEn, setEditedTranslationEn] = useState("");
+  const [editedTranslationRu, setEditedTranslationRu] = useState("");
   const [comment, setComment] = useState("");
   const [imagesUrls, setImagesUrls] = useState<string[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<string>("");
@@ -54,12 +55,14 @@ export const ValidateImage: React.FC = () => {
     updateWord(word.id, {
       is_moderated: true,
       selected_photo: selectedPhoto,
-      en: editedTranslation ? editedTranslation : word.en,
+      en: editedTranslationEn ? editedTranslationEn : word.en,
+      ru: editedTranslationRu ? editedTranslationRu : word.ru,
       comment: comment,
     })
       .then(() => {
         handleGetNextWord();
-        setEditedTranslation("");
+        setEditedTranslationEn("");
+        setEditedTranslationRu("");
         setComment("");
         setSelectedPhoto("");
       })
@@ -77,13 +80,15 @@ export const ValidateImage: React.FC = () => {
     updateWord(word.id, {
       is_moderated: true,
       selected_photo: "",
-      en: editedTranslation ? editedTranslation : word.en,
+      en: editedTranslationEn ? editedTranslationEn : word.en,
+      ru: editedTranslationRu ? editedTranslationRu : word.ru,
       comment: comment,
       is_wrong_translation: true,
     })
       .then(() => {
         handleGetNextWord();
-        setEditedTranslation("");
+        setEditedTranslationEn("");
+        setEditedTranslationRu("");
         setComment("");
         setSelectedPhoto("");
       })
@@ -101,12 +106,14 @@ export const ValidateImage: React.FC = () => {
     updateWord(word.id, {
       is_moderated: true,
       selected_photo: "",
-      en: editedTranslation ? editedTranslation : word.en,
+      en: editedTranslationEn ? editedTranslationEn : word.en,
+      ru: editedTranslationRu ? editedTranslationRu : word.ru,
       comment: comment,
     })
       .then(() => {
         handleGetNextWord();
-        setEditedTranslation("");
+        setEditedTranslationEn("");
+        setEditedTranslationRu("");
         setComment("");
         setSelectedPhoto("");
       })
@@ -143,12 +150,20 @@ export const ValidateImage: React.FC = () => {
         {(isLoading || isModerating) && "Loading... / Loading..."}
         {!isLoading && !isModerating && `${word?.en} / ${word?.ru}`}
       </h2>
-      <input
-        className={styles.input}
-        placeholder="Редактированный перевод (необязательно)"
-        value={editedTranslation}
-        onChange={(e) => setEditedTranslation(e.target.value)}
-      ></input>
+      <div className={styles.inputs}>
+        <input
+          className={styles.input}
+          placeholder="Eng"
+          value={editedTranslationEn}
+          onChange={(e) => setEditedTranslationEn(e.target.value)}
+        ></input>
+        <input
+          className={styles.input}
+          placeholder="Рус"
+          value={editedTranslationRu}
+          onChange={(e) => setEditedTranslationRu(e.target.value)}
+        ></input>
+      </div>
       <textarea
         className={styles.textarea}
         placeholder="Примечание (необязательно)"
