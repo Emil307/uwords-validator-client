@@ -100,12 +100,12 @@ export const ImageViewer: React.FC<IImageViewerProps> = ({
         modules={[Pagination]}
         spaceBetween={0}
         slidesPerView={1}
-        pagination={{
-          clickable: true,
-          bulletClass: styles.dot,
-          bulletActiveClass: styles.activeDot,
-          horizontalClass: styles.dots,
-        }}
+        // pagination={{
+        //   clickable: true,
+        //   bulletClass: styles.dot,
+        //   bulletActiveClass: styles.activeDot,
+        //   horizontalClass: styles.dots,
+        // }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
