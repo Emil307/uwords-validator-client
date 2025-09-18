@@ -5,13 +5,13 @@ import {
   WithoutImageButton,
 } from "@/features/images";
 import {
-  getModeratedCount,
   getNextWord,
   ImageViewer,
   ITWord,
   updateWord,
 } from "@/entities/images";
 import styles from "./styles.module.scss";
+import { Button } from "@/shared";
 
 export const ValidateImage: React.FC = () => {
   const [word, setWord] = useState<ITWord | null>(null);
@@ -25,7 +25,6 @@ export const ValidateImage: React.FC = () => {
 
   useEffect(() => {
     handleGetNextWord();
-    handleGetModeratedCount();
   }, []);
 
   function handleGetNextWord() {
@@ -44,16 +43,6 @@ export const ValidateImage: React.FC = () => {
       });
   }
 
-  function handleGetModeratedCount() {
-    getModeratedCount()
-      .then((res) => {
-        setModeratedCount(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   function handleGoNext() {
     if (selectedPhoto === "") {
       return;
@@ -67,6 +56,30 @@ export const ValidateImage: React.FC = () => {
       selected_photo: selectedPhoto,
       en: editedTranslation ? editedTranslation : word.en,
       comment: comment,
+    })
+      .then(() => {
+        handleGetNextWord();
+        setEditedTranslation("");
+        setComment("");
+        setSelectedPhoto("");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsModerating(false);
+      });
+  }
+
+  function handleIncorectWord() {
+    if (!word) return;
+    setIsModerating(true);
+    updateWord(word.id, {
+      is_moderated: true,
+      selected_photo: "",
+      en: editedTranslation ? editedTranslation : word.en,
+      comment: comment,
+      is_wrong_translation: true,
     })
       .then(() => {
         handleGetNextWord();
@@ -107,6 +120,9 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <Button onClick={handleIncorectWord} disabled={isLoading || isModerating}>
+        Нерелевантное слово
+      </Button>
       <GetMoreImages
         word={word?.en || ""}
         imagesUrls={imagesUrls}

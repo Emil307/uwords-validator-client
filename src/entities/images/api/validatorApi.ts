@@ -14,10 +14,6 @@ export async function getNextWord(): Promise<AxiosResponse<ITWord>> {
   return await $api.get(`/api/words/next`);
 }
 
-export async function getModeratedCount(): Promise<AxiosResponse> {
-  return await $api.get(`/api/words/moderated-count`);
-}
-
 export async function getImagesByWord(
   word: string,
   page: number
