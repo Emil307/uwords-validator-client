@@ -5,7 +5,6 @@ import {
   WithoutImageButton,
 } from "@/features/images";
 import {
-  getModeratedCount,
   getNextWord,
   ImageViewer,
   ITWord,
@@ -26,7 +25,6 @@ export const ValidateImage: React.FC = () => {
 
   useEffect(() => {
     handleGetNextWord();
-    handleGetModeratedCount();
   }, []);
 
   function handleGetNextWord() {
@@ -42,16 +40,6 @@ export const ValidateImage: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-      });
-  }
-
-  function handleGetModeratedCount() {
-    getModeratedCount()
-      .then((res) => {
-        setModeratedCount(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   }
 
