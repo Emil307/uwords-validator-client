@@ -12,6 +12,7 @@ import {
   updateWord,
 } from "@/entities/images";
 import styles from "./styles.module.scss";
+import { Button } from "@/shared";
 
 export const ValidateImage: React.FC = () => {
   const [word, setWord] = useState<ITWord | null>(null);
@@ -82,6 +83,30 @@ export const ValidateImage: React.FC = () => {
       });
   }
 
+  function handleIncorectWord() {
+    if (!word) return;
+    setIsModerating(true);
+    updateWord(word.id, {
+      is_moderated: true,
+      selected_photo: "",
+      en: editedTranslation ? editedTranslation : word.en,
+      comment: comment,
+      is_wrong_translation: true,
+    })
+      .then(() => {
+        handleGetNextWord();
+        setEditedTranslation("");
+        setComment("");
+        setSelectedPhoto("");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsModerating(false);
+      });
+  }
+
   function handleWithoutImage() {
     if (!word) return;
     setIsModerating(true);
@@ -107,6 +132,9 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <Button onClick={handleIncorectWord} disabled={isLoading || isModerating}>
+        Нерелевантное слово
+      </Button>
       <GetMoreImages
         word={word?.en || ""}
         imagesUrls={imagesUrls}
