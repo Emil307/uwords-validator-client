@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   padding: 1rem;
   width: 100%;
   max-width: 400px;
@@ -46,7 +46,7 @@
 .textarea {
   max-width: 100%;
   min-width: 100%;
-  min-height: 100px;
+  min-height: 80px;
 }
 
 .buttons {
