@@ -127,9 +127,6 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Button onClick={handleIncorectWord} disabled={isLoading || isModerating}>
-        Нерелевантное слово
-      </Button>
       <GetMoreImages
         word={word?.en || ""}
         imagesUrls={imagesUrls}
@@ -181,6 +178,13 @@ export const ValidateImage: React.FC = () => {
             disabled={isLoading || isModerating}
           />
         )}
+        <Button
+          onClick={handleIncorectWord}
+          disabled={isLoading || isModerating}
+          style={{ marginTop: "1rem" }}
+        >
+          Нерелевантное слово
+        </Button>
       </div>
     </div>
   );

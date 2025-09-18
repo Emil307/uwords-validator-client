@@ -7,6 +7,7 @@
 .swiper {
   width: 100%;
   height: auto;
+  margin-bottom: 4rem;
 
   user-select: none;
   -webkit-user-select: none;
@@ -147,16 +148,15 @@
 /* Контейнер для кнопок навигации */
 .navigationContainer {
   position: absolute;
-  top: -64px;
+  bottom: 0;
   left: 0;
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
-  max-width: fit-content;
 }
 
 /* Стили для кнопок навигации */

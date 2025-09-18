@@ -54,6 +54,47 @@ export const ImageViewer: React.FC<IImageViewerProps> = ({
 
   return (
     <div className={styles.sliderContainer}>
+      <Swiper
+        modules={[Pagination]}
+        spaceBetween={0}
+        slidesPerView={1}
+        // pagination={{
+        //   clickable: true,
+        //   bulletClass: styles.dot,
+        //   bulletActiveClass: styles.activeDot,
+        //   horizontalClass: styles.dots,
+        // }}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        className={styles.swiper}
+        touchStartPreventDefault={false}
+        preventInteractionOnTransition={false}
+        allowTouchMove={true}
+        touchEventsTarget="container"
+        touchRatio={1}
+        threshold={10}
+        longSwipes={true}
+        shortSwipes={true}
+        resistance={true}
+        resistanceRatio={0.85}
+      >
+        {slidesData.map((slideImages, slideIndex) => (
+          <SwiperSlide key={slideIndex} className={styles.slide}>
+            <div className={styles.grid}>
+              {slideImages.map((url, imageIndex) => (
+                <ImageWithLoader
+                  key={url}
+                  src={url}
+                  alt={`${alt} ${slideIndex * 4 + imageIndex + 1}`}
+                  isSelected={selectedPhoto === url}
+                  onClick={() => handleImageClick(url)}
+                />
+              ))}
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <div className={styles.navigationContainer}>
         <button
           className={`${styles.swiperButtonPrev} ${styles.swiperButton}`}
@@ -96,47 +137,6 @@ export const ImageViewer: React.FC<IImageViewerProps> = ({
           </svg>
         </button>
       </div>
-      <Swiper
-        modules={[Pagination]}
-        spaceBetween={0}
-        slidesPerView={1}
-        pagination={{
-          clickable: true,
-          bulletClass: styles.dot,
-          bulletActiveClass: styles.activeDot,
-          horizontalClass: styles.dots,
-        }}
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        className={styles.swiper}
-        touchStartPreventDefault={false}
-        preventInteractionOnTransition={false}
-        allowTouchMove={true}
-        touchEventsTarget="container"
-        touchRatio={1}
-        threshold={10}
-        longSwipes={true}
-        shortSwipes={true}
-        resistance={true}
-        resistanceRatio={0.85}
-      >
-        {slidesData.map((slideImages, slideIndex) => (
-          <SwiperSlide key={slideIndex} className={styles.slide}>
-            <div className={styles.grid}>
-              {slideImages.map((url, imageIndex) => (
-                <ImageWithLoader
-                  key={url}
-                  src={url}
-                  alt={`${alt} ${slideIndex * 4 + imageIndex + 1}`}
-                  isSelected={selectedPhoto === url}
-                  onClick={() => handleImageClick(url)}
-                />
-              ))}
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
     </div>
   );
 };
