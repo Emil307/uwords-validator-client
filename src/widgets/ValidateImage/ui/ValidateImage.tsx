@@ -45,7 +45,7 @@ export const ValidateImage: React.FC = () => {
   }
 
   function handleGoNext() {
-    if (selectedPhoto === "") {
+    if (selectedPhoto === "" && word?.photo_urls.length !== 0) {
       return;
     }
 
