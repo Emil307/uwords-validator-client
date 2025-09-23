@@ -9,6 +9,7 @@ import {
   ImageViewer,
   ITWord,
   updateWord,
+  UpdateWordRequestDTO,
 } from "@/entities/images";
 import styles from "./styles.module.scss";
 import { Button } from "@/shared";
@@ -23,6 +24,7 @@ export const ValidateImage: React.FC = () => {
   const [comment, setComment] = useState("");
   const [imagesUrls, setImagesUrls] = useState<string[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<string>("");
+  const [isConvertInfiniteLater, setIsConvertInfiniteLater] = useState(false);
 
   useEffect(() => {
     handleGetNextWord();
@@ -44,85 +46,55 @@ export const ValidateImage: React.FC = () => {
       });
   }
 
+  function moderateWord(data: UpdateWordRequestDTO) {
+    if (!word) return;
+
+    setIsModerating(true);
+    updateWord(word.id, {
+      ...data,
+      is_moderated: true,
+      en: editedTranslationEn ? editedTranslationEn : word.en,
+      ru: editedTranslationRu ? editedTranslationRu : word.ru,
+      is_add_later: isConvertInfiniteLater,
+      comment: comment,
+    })
+      .then(() => {
+        handleGetNextWord();
+        setEditedTranslationEn("");
+        setEditedTranslationRu("");
+        setComment("");
+        setSelectedPhoto("");
+        setIsConvertInfiniteLater(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsModerating(false);
+      });
+  }
+
   function handleGoNext() {
     if (selectedPhoto === "" && word?.photo_urls.length !== 0) {
       return;
     }
 
-    if (!word) return;
-
-    setIsModerating(true);
-    updateWord(word.id, {
-      is_moderated: true,
+    moderateWord({
       selected_photo: selectedPhoto,
-      en: editedTranslationEn ? editedTranslationEn : word.en,
-      ru: editedTranslationRu ? editedTranslationRu : word.ru,
-      comment: comment,
-    })
-      .then(() => {
-        handleGetNextWord();
-        setEditedTranslationEn("");
-        setEditedTranslationRu("");
-        setComment("");
-        setSelectedPhoto("");
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsModerating(false);
-      });
+    });
   }
 
   function handleIncorectWord() {
-    if (!word) return;
-    setIsModerating(true);
-    updateWord(word.id, {
-      is_moderated: true,
+    moderateWord({
       selected_photo: "",
-      en: editedTranslationEn ? editedTranslationEn : word.en,
-      ru: editedTranslationRu ? editedTranslationRu : word.ru,
-      comment: comment,
       is_wrong_translation: true,
-    })
-      .then(() => {
-        handleGetNextWord();
-        setEditedTranslationEn("");
-        setEditedTranslationRu("");
-        setComment("");
-        setSelectedPhoto("");
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsModerating(false);
-      });
+    });
   }
 
   function handleWithoutImage() {
-    if (!word) return;
-    setIsModerating(true);
-    updateWord(word.id, {
-      is_moderated: true,
+    moderateWord({
       selected_photo: "",
-      en: editedTranslationEn ? editedTranslationEn : word.en,
-      ru: editedTranslationRu ? editedTranslationRu : word.ru,
-      comment: comment,
-    })
-      .then(() => {
-        handleGetNextWord();
-        setEditedTranslationEn("");
-        setEditedTranslationRu("");
-        setComment("");
-        setSelectedPhoto("");
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsModerating(false);
-      });
+    });
   }
 
   return (
@@ -161,6 +133,12 @@ export const ValidateImage: React.FC = () => {
           onChange={(e) => setEditedTranslationRu(e.target.value)}
         ></input>
       </div>
+      <button
+        className={styles.infinitivButton}
+        onClick={() => setIsConvertInfiniteLater(!isConvertInfiniteLater)}
+      >
+        {!isConvertInfiniteLater ? "Привести к инфинитиву позже" : "Отмена"}
+      </button>
       <textarea
         className={styles.textarea}
         placeholder="Примечание (необязательно)"
