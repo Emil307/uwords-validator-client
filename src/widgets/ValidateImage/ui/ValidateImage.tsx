@@ -28,6 +28,14 @@ export const ValidateImage: React.FC = () => {
     handleGetNextWord();
   }, []);
 
+  function reset() {
+    handleGetNextWord();
+    setEditedTranslationEn("");
+    setEditedTranslationRu("");
+    setComment("");
+    setSelectedPhoto("");
+  }
+
   function handleGetNextWord() {
     setIsLoading(true);
     getNextWord()
@@ -60,11 +68,7 @@ export const ValidateImage: React.FC = () => {
       comment: comment,
     })
       .then(() => {
-        handleGetNextWord();
-        setEditedTranslationEn("");
-        setEditedTranslationRu("");
-        setComment("");
-        setSelectedPhoto("");
+        reset();
       })
       .catch((error) => {
         console.log(error);
@@ -86,11 +90,7 @@ export const ValidateImage: React.FC = () => {
       is_wrong_translation: true,
     })
       .then(() => {
-        handleGetNextWord();
-        setEditedTranslationEn("");
-        setEditedTranslationRu("");
-        setComment("");
-        setSelectedPhoto("");
+        reset();
       })
       .catch((error) => {
         console.log(error);
@@ -111,11 +111,7 @@ export const ValidateImage: React.FC = () => {
       comment: comment,
     })
       .then(() => {
-        handleGetNextWord();
-        setEditedTranslationEn("");
-        setEditedTranslationRu("");
-        setComment("");
-        setSelectedPhoto("");
+        reset();
       })
       .catch((error) => {
         console.log(error);
