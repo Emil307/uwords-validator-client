@@ -43,26 +43,32 @@
   color: #fff;
 }
 
-.infinitivButton {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
-  letter-spacing: 0.05em;
-  text-decoration: underline;
-  position: relative;
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}
-
 .textarea {
   max-width: 100%;
   min-width: 100%;
   min-height: 80px;
+}
+
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.checkboxLabel {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
 }
 
 .buttons {

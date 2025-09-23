@@ -25,6 +25,7 @@ export const ValidateImage: React.FC = () => {
   const [imagesUrls, setImagesUrls] = useState<string[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<string>("");
   const [isConvertInfiniteLater, setIsConvertInfiniteLater] = useState(false);
+  const [isSpecialWord, setIsSpecialWord] = useState(false);
 
   useEffect(() => {
     handleGetNextWord();
@@ -56,6 +57,7 @@ export const ValidateImage: React.FC = () => {
       en: editedTranslationEn ? editedTranslationEn : word.en,
       ru: editedTranslationRu ? editedTranslationRu : word.ru,
       is_add_later: isConvertInfiniteLater,
+      is_special_word: isSpecialWord,
       comment: comment,
     })
       .then(() => {
@@ -133,18 +135,43 @@ export const ValidateImage: React.FC = () => {
           onChange={(e) => setEditedTranslationRu(e.target.value)}
         ></input>
       </div>
-      <button
-        className={styles.infinitivButton}
-        onClick={() => setIsConvertInfiniteLater(!isConvertInfiniteLater)}
-      >
-        {!isConvertInfiniteLater ? "Привести к инфинитиву позже" : "Отмена"}
-      </button>
       <textarea
         className={styles.textarea}
         placeholder="Примечание (необязательно)"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       ></textarea>
+
+      <div className={styles.checkboxes}>
+        <div className={styles.checkboxContainer}>
+          <input
+            type="checkbox"
+            checked={isConvertInfiniteLater}
+            onChange={() => setIsConvertInfiniteLater(!isConvertInfiniteLater)}
+            id="isConvertInfiniteLater"
+            className={styles.checkbox}
+          />
+          <label
+            htmlFor="isConvertInfiniteLater"
+            className={styles.checkboxLabel}
+          >
+            Привести к инфинитиву позже
+          </label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input
+            type="checkbox"
+            checked={isSpecialWord}
+            onChange={() => setIsSpecialWord(!isSpecialWord)}
+            id="isSpecialWord"
+            className={styles.checkbox}
+          />
+          <label htmlFor="isSpecialWord" className={styles.checkboxLabel}>
+            Специализированное слово
+          </label>
+        </div>
+      </div>
+
       <div className={styles.buttons}>
         <ConfrimImageButton
           onClick={handleGoNext}
