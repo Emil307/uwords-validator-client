@@ -24,6 +24,7 @@ export const ValidateImage: React.FC = () => {
   const [comment, setComment] = useState("");
   const [imagesUrls, setImagesUrls] = useState<string[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<string>("");
+  const [isConvertInfiniteLater, setIsConvertInfiniteLater] = useState(false);
 
   useEffect(() => {
     handleGetNextWord();
@@ -54,6 +55,7 @@ export const ValidateImage: React.FC = () => {
       is_moderated: true,
       en: editedTranslationEn ? editedTranslationEn : word.en,
       ru: editedTranslationRu ? editedTranslationRu : word.ru,
+      is_add_later: isConvertInfiniteLater,
       comment: comment,
     })
       .then(() => {
@@ -62,6 +64,7 @@ export const ValidateImage: React.FC = () => {
         setEditedTranslationRu("");
         setComment("");
         setSelectedPhoto("");
+        setIsConvertInfiniteLater(false);
       })
       .catch((error) => {
         console.log(error);
@@ -130,6 +133,12 @@ export const ValidateImage: React.FC = () => {
           onChange={(e) => setEditedTranslationRu(e.target.value)}
         ></input>
       </div>
+      <button
+        className={styles.infinitivButton}
+        onClick={() => setIsConvertInfiniteLater(!isConvertInfiniteLater)}
+      >
+        {!isConvertInfiniteLater ? "Привести к инфинитиву позже" : "Отмена"}
+      </button>
       <textarea
         className={styles.textarea}
         placeholder="Примечание (необязательно)"
