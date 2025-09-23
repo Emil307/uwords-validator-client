@@ -7,6 +7,7 @@ export interface UpdateWordRequestDTO {
   is_moderated?: boolean;
   is_add_later?: boolean;
   is_wrong_translation?: boolean;
+  is_special_word?: boolean;
 }
 
 export interface GetImagesByWordRequestDTO {
