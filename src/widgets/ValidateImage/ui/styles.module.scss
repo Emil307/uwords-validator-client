@@ -11,6 +11,17 @@
   box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.25) inset;
 }
 
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moderatedCount {
+  font-size: 1rem;
+  color: #fff;
+}
+
 .word {
   font-size: 1.75rem;
   font-weight: 700;
