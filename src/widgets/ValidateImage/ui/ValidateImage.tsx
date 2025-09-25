@@ -5,6 +5,7 @@ import {
   WithoutImageButton,
 } from "@/features/images";
 import {
+  getModeratedCount,
   getNextWord,
   ImageViewer,
   ITWord,
@@ -29,6 +30,7 @@ export const ValidateImage: React.FC = () => {
 
   useEffect(() => {
     handleGetNextWord();
+    handleGetModeratedCount();
   }, []);
 
   function handleGetNextWord() {
@@ -36,14 +38,25 @@ export const ValidateImage: React.FC = () => {
     getNextWord()
       .then((res) => {
         setWord(res.data);
-        setImagesUrls(res.data.photo_urls);
         setModeratedCount(moderatedCount + 1);
+        setImagesUrls(res.data.photo_urls);
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         setIsLoading(false);
+      });
+  }
+
+  function handleGetModeratedCount() {
+    getModeratedCount()
+      .then((res) => {
+        setModeratedCount(res.data);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -101,11 +114,14 @@ export const ValidateImage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <GetMoreImages
-        word={word?.en || ""}
-        imagesUrls={imagesUrls}
-        setImagesUrls={setImagesUrls}
-      />
+      <div className={styles.top}>
+        <span className={styles.moderatedCount}>{moderatedCount}</span>
+        <GetMoreImages
+          word={word?.en || ""}
+          imagesUrls={imagesUrls}
+          setImagesUrls={setImagesUrls}
+        />
+      </div>
       {(isLoading || isModerating) && (
         <div className={styles.loadingImage}></div>
       )}
