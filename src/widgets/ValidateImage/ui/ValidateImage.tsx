@@ -27,7 +27,7 @@ export const ValidateImage: React.FC = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<string>("");
   const [isConvertInfiniteLater, setIsConvertInfiniteLater] = useState(false);
   const [isSpecialWord, setIsSpecialWord] = useState(false);
-  const [levelIndex, setLevelIndex] = useState(2); // По умолчанию B1
+  // const [levelIndex, setLevelIndex] = useState(2); // По умолчанию B1
 
   const handleGetNextWord = useCallback(() => {
     setIsLoading(true);
@@ -64,8 +64,8 @@ export const ValidateImage: React.FC = () => {
   function moderateWord(data: UpdateWordRequestDTO) {
     if (!word) return;
 
-    const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
-    const selectedLevel = levels[levelIndex];
+    // const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+    // const selectedLevel = levels[levelIndex];
 
     setIsModerating(true);
     updateWord(word.id, {
@@ -76,7 +76,7 @@ export const ValidateImage: React.FC = () => {
       is_add_later: isConvertInfiniteLater,
       is_special_word: isSpecialWord,
       comment: comment,
-      level: selectedLevel,
+      level: null,
     })
       .then(() => {
         handleGetNextWord();
@@ -85,7 +85,7 @@ export const ValidateImage: React.FC = () => {
         setComment("");
         setSelectedPhoto("");
         setIsConvertInfiniteLater(false);
-        setLevelIndex(2); // Сброс на B1
+        // setLevelIndex(2); // Сброс на B1
         setIsSpecialWord(false);
       })
       .catch((error) => {
@@ -165,7 +165,7 @@ export const ValidateImage: React.FC = () => {
         onChange={(e) => setComment(e.target.value)}
       ></textarea>
 
-      <div className={styles.levelSelector}>
+      {/* <div className={styles.levelSelector}>
         <label className={styles.levelLabel}>
           Уровень слова:{" "}
           <span className={styles.levelValue}>
@@ -194,7 +194,7 @@ export const ValidateImage: React.FC = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className={styles.checkboxes}>
         <div className={styles.checkboxContainer}>
