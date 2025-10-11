@@ -86,6 +86,7 @@ export const ValidateImage: React.FC = () => {
         setSelectedPhoto("");
         setIsConvertInfiniteLater(false);
         setLevelIndex(2); // Сброс на B1
+        setIsSpecialWord(false);
       })
       .catch((error) => {
         console.log(error);
