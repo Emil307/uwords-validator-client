@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ConfrimImageButton,
   GetMoreImages,
@@ -27,18 +27,14 @@ export const ValidateImage: React.FC = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<string>("");
   const [isConvertInfiniteLater, setIsConvertInfiniteLater] = useState(false);
   const [isSpecialWord, setIsSpecialWord] = useState(false);
+  const [levelIndex, setLevelIndex] = useState(2); // По умолчанию B1
 
-  useEffect(() => {
-    handleGetNextWord();
-    handleGetModeratedCount();
-  }, []);
-
-  function handleGetNextWord() {
+  const handleGetNextWord = useCallback(() => {
     setIsLoading(true);
     getNextWord()
       .then((res) => {
         setWord(res.data);
-        setModeratedCount(moderatedCount + 1);
+        setModeratedCount((prev) => String(Number(prev) + 1));
         setImagesUrls(res.data.photo_urls);
       })
       .catch((error) => {
@@ -47,9 +43,9 @@ export const ValidateImage: React.FC = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }
+  }, []);
 
-  function handleGetModeratedCount() {
+  const handleGetModeratedCount = useCallback(() => {
     getModeratedCount()
       .then((res) => {
         setModeratedCount(res.data);
@@ -58,10 +54,18 @@ export const ValidateImage: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
-  }
+  }, []);
+
+  useEffect(() => {
+    handleGetNextWord();
+    handleGetModeratedCount();
+  }, [handleGetNextWord, handleGetModeratedCount]);
 
   function moderateWord(data: UpdateWordRequestDTO) {
     if (!word) return;
+
+    const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+    const selectedLevel = levels[levelIndex];
 
     setIsModerating(true);
     updateWord(word.id, {
@@ -72,6 +76,7 @@ export const ValidateImage: React.FC = () => {
       is_add_later: isConvertInfiniteLater,
       is_special_word: isSpecialWord,
       comment: comment,
+      level: selectedLevel,
     })
       .then(() => {
         handleGetNextWord();
@@ -80,6 +85,7 @@ export const ValidateImage: React.FC = () => {
         setComment("");
         setSelectedPhoto("");
         setIsConvertInfiniteLater(false);
+        setLevelIndex(2); // Сброс на B1
       })
       .catch((error) => {
         console.log(error);
@@ -157,6 +163,37 @@ export const ValidateImage: React.FC = () => {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       ></textarea>
+
+      <div className={styles.levelSelector}>
+        <label className={styles.levelLabel}>
+          Уровень слова:{" "}
+          <span className={styles.levelValue}>
+            {["A1", "A2", "B1", "B2", "C1", "C2"][levelIndex]}
+          </span>
+        </label>
+        <div className={styles.sliderContainer}>
+          <input
+            type="range"
+            min="0"
+            max="5"
+            value={levelIndex}
+            onChange={(e) => setLevelIndex(Number(e.target.value))}
+            className={styles.slider}
+          />
+          <div className={styles.levelMarks}>
+            {["A1", "A2", "B1", "B2", "C1", "C2"].map((level, index) => (
+              <span
+                key={level}
+                className={`${styles.levelMark} ${
+                  index === levelIndex ? styles.activeMark : ""
+                }`}
+              >
+                {level}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className={styles.checkboxes}>
         <div className={styles.checkboxContainer}>
